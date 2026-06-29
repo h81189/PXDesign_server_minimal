@@ -365,7 +365,8 @@ def main(argv=None):
     # API_BASE = "http://aindcompute-ux1.tail2acc6.ts.net:5051/api"
     # API_BASE = "http://aind-proteomics.tail2acc6.ts.net:5051/api"
     # API_BASE = "http://100.114.7.72:5051/api"  # bare machines do NOT have tailscale but ARE connected so need to provide TS IP which is static
-    API_BASE = "http://100.125.175.66:5051/api"  # bare machines do NOT have tailscale but ARE connected so need to provide TS IP which is static
+    # API_BASE = "http://100.125.175.66:5051/api"  # bare machines do NOT have tailscale but ARE connected so need to provide TS IP which is static
+    API_BASE = "http://aindcompute-ux1.corp.alleninstitute.org:5051/api/"
     r = requests.get(f"{API_BASE}/jobs")  # find this job
     r.raise_for_status()
 
@@ -477,10 +478,10 @@ def main(argv=None):
         "True",
         " ",
         "--load_checkpoint_dir",
-        "/home/hari.koneru/PXDesign/release_data/checkpoint",
+        "/data/release_data/checkpoint",
     ]
     argv[1] = config.strip().split("\n")[-1].strip().split(" ")[-1]  # out path
-    argv[3] = "/PXDesign/config.yaml"  # input path
+    argv[3] = "/PXDesign_server_minimal/config.yaml"  # input path
     argv[7] = str(cli["N_sample"])  # batch size
 
     # remove out_dir from config
@@ -491,12 +492,12 @@ def main(argv=None):
     )
     print(config)
     print(cli)
-    with open("/PXDesign/config.yaml", "w") as f:
+    with open("/PXDesign_server_minimal/config.yaml", "w") as f:
         f.write(
             config
         )  # save modified config with out_dir removed (since it's an override) and proper JSON formatting
     print("HK: running MSA...")
-    run_live("pxdesign prepare-msa --yaml /PXDesign/config.yaml")
+    run_live("pxdesign prepare-msa --yaml /PXDesign_server_minimal/config.yaml")
     print("HK: running pipeline...")
 
     configs, p = parse_args(argv)

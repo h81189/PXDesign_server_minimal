@@ -12,5 +12,7 @@ RUN chmod 777 install.sh && conda tos accept && ./install.sh --cuda-version 12.1
 ENV PROTENIX_DATA_ROOT_DIR=/home/hari.koneru/PXDesign/release_data/ccd_cache
 ENV TOOL_WEIGHTS_ROOT=/home/hari.koneru/PXDesign/tool_weights
 
+RUN chmod -R 777 /PXDesign_server_minimal
+
 RUN groupadd -g 10513 domainusers && useradd -m -u 20573 -g 10513 -s /bin/bash hari.koneru
 USER hari.koneru
